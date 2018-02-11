@@ -9,10 +9,10 @@ import { ListPage } from '../pages/list/list';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MakanApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = 'welcome';
 
   pages: Array<{title: string, component: any}>;
 
