@@ -12,6 +12,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class WelcomePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    setTimeout(() => {
+      this.skipPage()
+    }, 3000)
   }
 
   ionViewDidLoad() {
