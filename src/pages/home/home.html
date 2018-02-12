@@ -8,6 +8,17 @@
 </ion-header>
 
 <ion-content padding scrollbar-y-auto>
- <p>Could the wheel come here?</p>
+  <button ion-button (click)="toggleVisible()">Toggle it!</button>
+
+  <p [@myvisibility]="visibleState">
+    I am sometimes here and sometimes there
+  </p>
+  
+  <p [@fadeInOut] *ngIf="show" (@fadeInOut.done)="animationFinished($event)" (@fadeInOut.start)="animationStarted($event)">
+    My appearance is magic.
+  </p>
+  
+  Start: {{ startTime | date:'medium' }}<br>
+  End: {{ endTime | date:'medium' }}
 
 </ion-content>

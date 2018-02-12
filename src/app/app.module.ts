@@ -6,6 +6,7 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { MakanApp } from './app.component';
 
@@ -16,6 +17,7 @@ import { MakanApp } from './app.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule, 
     IonicModule.forRoot(MakanApp),
   ],
   bootstrap: [IonicApp],
