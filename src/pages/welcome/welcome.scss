@@ -1,26 +1,19 @@
 .ios, .md {
     page-welcome {
         ion-content {
-            background-color: #319600; 
+            background: color($colors, primary);
         }
 
         p, h2 {
             color: #fff; 
         }
 
-        .logo {
-            margin-top: 37vh;
-            display: block; 
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20vh;
         }
 
-        .logo #bottom {
-            font-weight: 700; 
-            font-size: 3.1rem; 
-        }
-
-        .logo #top {
-            font-weight: 300; 
-            font-size: 2.7rem; 
-        }
     }
 }

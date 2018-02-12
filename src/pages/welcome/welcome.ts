@@ -14,7 +14,7 @@ export class WelcomePage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     setTimeout(() => {
       this.skipPage()
-    }, 3000)
+    }, 5000)
   }
 
   ionViewDidLoad() {
