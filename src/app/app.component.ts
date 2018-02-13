@@ -22,11 +22,6 @@ export class MakanApp {
     
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
-    ];
   }
 
   initializeApp() {

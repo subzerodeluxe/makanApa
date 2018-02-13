@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
-import { trigger, state, style, transition, animate, keyframes, group } from '@angular/animations';
+import { NavController, ModalController, IonicPage } from 'ionic-angular';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @IonicPage({
   name: 'home'
@@ -9,61 +9,37 @@ import { trigger, state, style, transition, animate, keyframes, group } from '@a
   selector: 'page-home',
   templateUrl: 'home.html',
   animations: [
-    trigger('myvisibility', [
-      state('visible', style({
-        opacity: 1
-      })),
-      state('invisible', style({
-        opacity: 0
-      })),
-      transition('* => *', animate('.5s'))
-    ]),
-    trigger('fadeInOut', [
-      transition(':enter',[ // "void => *"
-        style({ opacity: 0}),
-        group([
-          animate('0.6s ease-in', keyframes([
-            style({ opacity: 0, transform: 'translate3d(-100%, 0 ,0)', offset: 0}),
-            style({ opacity: 0.5, transform: 'translate3d(20%, 0 ,0)', offset: 0.5}),
-            style({ opacity: 1, transform: 'translate3d(0, 0 ,0)', offset: 1})
-          ])),
-          animate('1s .5s ease', style({
-            color: '#ff0000'
-          }))
-        ])
-      ]),
-      transition(':leave',[ // "* => void"
-        animate('0.6s ease-out', keyframes([
-          style({ opacity: 1, transform: 'translate3d(0, 0 ,0)', offset: 0}),
-          style({ opacity: 0.5, transform: 'translate3d(-20%, 0 ,0)', offset: 0.7}),
-          style({ opacity: 0, transform: 'translate3d(100%, 0 ,0)', offset: 1})
-        ]))
-      ])
+    trigger('shake', [
+      state('small', style({transform: 'scale(1)'})),
+      state('big', style({transform: 'scale(1.1)'})),
+      transition('small => big', animate('0.5s linear')),
+      transition('big => small', animate('0.5s linear'))
     ])
   ]
 })
 export class HomePage {
   
-  show: boolean = true;
-  visibleState = 'visible';
-  startTime = null;
-  endTime = null;
+  state: string = 'small';
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public modalCtr: ModalController) { }
 
+  ionViewDidLoad() {
+    setTimeout(() => {
+      this.state = 'big';
+    }, 0);
   }
 
-  toggleVisible() {
-    this.show = !this.show;
-    this.visibleState = (this.visibleState == 'visible') ? 'invisible' : 'visible';
+  onEnd(event) {
+    this.state = 'small';
+    if (event.toState === 'small') {
+      setTimeout(() => {
+        this.state = 'big';
+      }, 0);
+    }
   }
 
-  animationStarted(ev) {
-    this.startTime = new Date();
+  openDishes() {
+    let dishesModal = this.modalCtr.create('dishesModal', { test: "testing" }); 
+    dishesModal.present(); 
   }
-
-  animationFinished(ev) {
-    this.endTime = new Date();
-  }
-
 }

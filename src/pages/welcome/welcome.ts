@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { trigger, style, transition, animate, keyframes } from '@angular/animations';
 
 @IonicPage({
   name: 'welcome'
@@ -28,7 +28,6 @@ export class WelcomePage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    
     setTimeout(() => {
       this.startAnimate();
       //this.skipPage();
@@ -39,7 +38,7 @@ export class WelcomePage {
     this.show = !this.show;
     setTimeout(() => {
       this.skipPage();
-    }, 800);
+    }, 650);
   }
 
   skipPage() {

@@ -1,24 +1,23 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
+  <ion-navbar color="primary">
+    <!-- <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
+    </button> -->
+    <img alt="logo" src="../assets/imgs/main-logo.png" style="width:50%"/>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding scrollbar-y-auto>
-  <button ion-button (click)="toggleVisible()">Toggle it!</button>
 
-  <p [@myvisibility]="visibleState">
-    I am sometimes here and sometimes there
-  </p>
-  
-  <p [@fadeInOut] *ngIf="show" (@fadeInOut.done)="animationFinished($event)" (@fadeInOut.start)="animationStarted($event)">
-    My appearance is magic.
-  </p>
-  
-  Start: {{ startTime | date:'medium' }}<br>
-  End: {{ endTime | date:'medium' }}
+    <div padding-left class="intro">
+        <p><span class="big">Oops!</span><br>
+           It seems that you don't have enough dishes to spin the wheel!</p>
+        <p>Please add dishes by pressing<br>the button in the bottom corner.</p>
+    </div>
 
+  <ion-fab [@shake]="state" (@shake.done)="onEnd($event)" padding right bottom>
+      <button (click)="openDishes()" ion-fab>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab>
 </ion-content>

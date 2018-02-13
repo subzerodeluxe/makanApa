@@ -2,14 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule, Injectable, Injector } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Pro } from '@ionic/pro';
-
-import { ListPage } from '../pages/list/list';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { MakanApp } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const IonicPro = Pro.init('32885621', {
   appVersion: '0.0.1'
@@ -38,18 +36,17 @@ export class MyErrorHandler implements ErrorHandler {
 
 @NgModule({
   declarations: [
-    MakanApp,
-    ListPage
+    MakanApp
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
+    HttpClientModule,
     IonicModule.forRoot(MakanApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MakanApp,
-    ListPage
+    MakanApp
   ],
   providers: [
     StatusBar,
