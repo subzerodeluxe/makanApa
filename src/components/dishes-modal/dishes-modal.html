@@ -1,20 +1,23 @@
 <ion-header>
     <ion-navbar color="primary">
+        <ion-buttons end>
+            <button ion-button icon-only (click)="closeMenuModal()">
+              <ion-icon name="close"></ion-icon>
+            </button>
+          </ion-buttons>
+      
       <img alt="logo" src="../assets/imgs/main-logo.png" style="width:50%"/>
-      <ion-icon (click)="closeMenuModal()" name="checkmark" item-right></ion-icon>
-  
     </ion-navbar>
   </ion-header>
   
 <ion-content scrollbar-y-auto>
-  
-    <ion-card *ngFor="let dish of dishes; let idx = index" class="block">
-        <ion-title *ngIf="showDish" (click)="openInputField(dish)">{{ dish }}</ion-title>
-        <ion-item *ngIf="showInput" class="item item-trns">
-            <!-- <ion-input (ionChange)="addDish(dish))" [(ngModel)]="dishes[idx].value" placeholder="{{dish}}" clearInput></ion-input>  -->
-            <ion-input (ionChange)="checkInput($event)" [(ngModel)]="enteredDish" placeholder="{{dish}}" clearInput></ion-input> 
-            <ion-icon *ngIf="showCheckmark" (click)="addDish(dish)" name="checkmark" item-right></ion-icon>
-        </ion-item>
-      </ion-card> 
-    
+
+  <ion-card [ngClass]="{'disabled-block':dish.active === false, 'block':dish.active === true }" *ngFor="let dish of dishes; let idx = index">
+    <ion-title *ngIf="showDish" (click)="openInputField(dish)">{{dish.name}}</ion-title>
+    <ion-item *ngIf="showInput" class="item item-trns"> 
+        <ion-input (ionChange)="checkInput($event, dish)" [(ngModel)]="enteredDish" placeholder="{{dishes[idx].name}}" clearInput></ion-input> 
+        <ion-icon *ngIf="showCheckmark" (click)="addDish(dish)" name="checkmark" item-right></ion-icon>
+    </ion-item>
+  </ion-card> 
+
 </ion-content>

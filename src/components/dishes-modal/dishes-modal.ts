@@ -28,9 +28,14 @@ export class DishesModalComponent {
   }
 
   ionViewDidLoad() {
-    this.dishes = ["Sop", "Nasi Goreng", "Pancakes", "Stamppot Andijvie", "...", "..."]; 
+    this.dishes = [
+      { name: "Sop", active: true }, 
+      { name: "Stamppot Andijvie", active: true },
+      { name: "Nasi Goreng", active: true },
+      { name: "...", active: false },
+      { name: "...", active: false }]; 
   }
-  
+
   addDish(dish) {
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
@@ -43,22 +48,22 @@ export class DishesModalComponent {
     console.log("Index of dish: " + index);
     
     if(index > -1) {
-      this.dishes[index] = this.enteredDish; 
+      this.dishes[index] = { name: this.enteredDish, active: true }; 
     }
   }
 
 
-  checkInput(input) {
+  checkInput(input, dish) {
     console.log("De tekst: " + input.value);
-
+    console.log("Oorspronkelijke dish: " + dish.name)
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
-      if(input.value >= 1) {
+      if(input.value.length >= 1) {
         this.showCheckmark = true;
       } else {
         this.showCheckmark = false; 
       }
-    }, 500);
+    }, 400); 
   }
 
   deleteDish(dish){
@@ -69,13 +74,19 @@ export class DishesModalComponent {
     }
   }
 
-  openInputField(dishIndex) {
-
-    let index = this.dishes.indexOf(dishIndex);
-    console.log("Deze input is nu open: " + index); 
-    this.showInput = true; 
-    this.showDish = false; 
-    console.log("Clicked on dish: " + JSON.stringify(dishIndex));
+  openInputField(dishObject) {
+    let index = this.dishes.indexOf(dishObject);
+    console.log("Deze input is nu open (index): " + index); 
+    // de input moet alleen open bij de juiste index
+    
+      this.showInput = true; 
+      this.showDish = false; 
+    
+   
+  
+      
+    
+    console.log("Welke dish? " + JSON.stringify(dishObject));
   }
 
   closeMenuModal() {
