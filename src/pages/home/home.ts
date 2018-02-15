@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController, IonicPage } from 'ionic-angular';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { DishesProvider } from '../../providers/dishes/dishes';
+import { Dish } from '../../models/dish.interface';
 
 @IonicPage({
   name: 'home'
@@ -20,13 +22,28 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 export class HomePage {
   
   state: string = 'small';
+  dishes: Dish[]; 
 
-  constructor(public navCtrl: NavController, public modalCtr: ModalController) { }
+  constructor(public navCtrl: NavController, public modalCtr: ModalController, public dishesProvider: DishesProvider) { }
 
   ionViewDidLoad() {
     setTimeout(() => {
       this.state = 'big';
     }, 0);
+  }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+     
+    this.dishesProvider.getAllDishes().then(data => {
+      this.dishes = data; 
+    })
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 1000);
   }
 
   onEnd(event) {

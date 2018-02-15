@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { MakanApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
+import { DishesProvider } from '../providers/dishes/dishes';
 
 const IonicPro = Pro.init('32885621', {
   appVersion: '0.0.1'
@@ -43,6 +45,7 @@ export class MyErrorHandler implements ErrorHandler {
     BrowserAnimationsModule,
     HttpClientModule,
     IonicModule.forRoot(MakanApp),
+    IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -53,7 +56,8 @@ export class MyErrorHandler implements ErrorHandler {
     SplashScreen,
     ScreenOrientation,
     IonicErrorHandler,
-        [{ provide: ErrorHandler, useClass: MyErrorHandler }]
+        [{ provide: ErrorHandler, useClass: MyErrorHandler }],
+    DishesProvider
   ]
 })
 export class AppModule {}

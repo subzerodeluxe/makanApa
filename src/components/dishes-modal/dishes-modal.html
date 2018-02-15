@@ -11,7 +11,7 @@
   </ion-header>
   
 <ion-content scrollbar-y-auto>
-
+  <p *ngIf="showNoDishesWarning" class="error">Oh dear .. something went wrong collecting the dishes! Please come back later.</p>
   <ion-card [ngClass]="{'disabled-block':dish.active === false, 'block':dish.active === true }" *ngFor="let dish of dishes; let idx = index">
     <ion-title *ngIf="showDish" (click)="openInputField(dish)">{{dish.name}}</ion-title>
     <ion-item *ngIf="showInput" class="item item-trns"> 

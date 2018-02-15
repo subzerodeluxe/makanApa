@@ -3,6 +3,8 @@ import { IonicPage, ViewController } from 'ionic-angular';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Platform } from 'ionic-angular/platform/platform';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { Dish } from '../../models/dish.interface';
+import { DishesProvider } from '../../providers/dishes/dishes';
 
 @IonicPage({
   name: 'dishesModal'
@@ -13,28 +15,48 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 })
 export class DishesModalComponent {
 
-  dishes: any;
+  preDishList: Dish[]; 
+  dishes: Dish[];
   showInput: boolean = false;
   showDish: boolean = true;
+  showNoDishesWarning: boolean = false; 
   showCheckmark: boolean = false; 
   timeout = null;
   enteredDish: string; 
 
-  constructor(public platform: Platform, public screenOrientation: ScreenOrientation, public viewCtrl: ViewController) {
+  constructor(public platform: Platform, public dishesProvider: DishesProvider, public screenOrientation: ScreenOrientation, public viewCtrl: ViewController) {
     if(this.platform.is('cordova')) {
-      // set to landscape
+      // set to portrait mode
      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-   } 
-  }
+    }
 
-  ionViewDidLoad() {
-    this.dishes = [
+    this.preDishList = [
       { name: "Sop", active: true }, 
       { name: "Stamppot Andijvie", active: true },
       { name: "Nasi Goreng", active: true },
       { name: "...", active: false },
-      { name: "...", active: false }]; 
+      { name: "...", active: false }];
+    
+    this.preDishList.forEach(dish => {
+      this.dishesProvider.addDish(dish).then((data => {
+        console.log("Dish wordt toegevoegd: " + JSON.stringify(data)); 
+      }))
+    });
   }
+
+  ionViewDidLoad() {
+    this.timeout = setTimeout(() => { 
+      this.dishesProvider.getAllDishes().then(dishes => {
+      console.log("What are the dishes: " + JSON.stringify(dishes)); 
+        if(dishes === null) {
+          console.log("No dishes added yet!");
+          this.showNoDishesWarning = true;
+        } else {
+          this.dishes = dishes; 
+        }
+      }) 
+    }, 1000)
+}
 
   addDish(dish) {
     clearTimeout(this.timeout);
@@ -44,14 +66,27 @@ export class DishesModalComponent {
     }, 500);
 
     console.log("New dish: " + this.enteredDish)
-    let index = this.dishes.indexOf(dish); 
+    let index = this.dishes.indexOf(dish);
+    let updatedDish = { name: this.enteredDish, active: true };
     console.log("Index of dish: " + index);
     
-    if(index > -1) {
-      this.dishes[index] = { name: this.enteredDish, active: true }; 
+    this.dishesProvider.addDish(updatedDish).then((data) => {
+        console.log("Huidige lijst met dishes: " + data); 
+      });
     }
-  }
 
+    // if(index > -1) {
+    //   this.dishes[index] = { name: this.enteredDish, active: true };
+    //   let updatedDish = { name: this.enteredDish, active: true };
+
+    //   console.log("Dishes lijst: " + JSON.stringify(this.dishes)); 
+    //   // this.storage.set('name', `${this.enteredDish}`);
+
+    //   this.dishesProvider.addDish(updatedDish).then((data) => {
+    //       console.log("Huidige lijst met dishes: " + data); 
+    //     });
+    //   }
+    
 
   checkInput(input, dish) {
     console.log("De tekst: " + input.value);
