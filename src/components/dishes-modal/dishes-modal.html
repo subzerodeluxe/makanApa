@@ -12,18 +12,15 @@
   
 <ion-content scrollbar-y-auto>
 
-  <ion-refresher (ionRefresh)="doRefresh($event)">
+  <!-- <ion-refresher (ionRefresh)="doRefresh($event)">
       <ion-refresher-content  pullingText="Update dishes ..."></ion-refresher-content>
-  </ion-refresher>
+  </ion-refresher> -->
 
-      
-  <p *ngIf="showNoDishesWarning" class="error">Oh dear .. something went wrong collecting the dishes! Please come back later.</p>
+  <p padding *ngIf="showNoDishesWarning" class="error">Oh dear .. something went wrong while collecting the dishes! Please try again.</p>
   <ion-card [ngClass]="{'disabled-block':dish.active === false, 'block':dish.active === true }" *ngFor="let dish of dishes; let idx = index">
-    <ion-title *ngIf="showDish" (click)="openInputField(dish)">{{dish.name}}</ion-title>
-    <ion-item *ngIf="showInput" class="item item-trns"> 
-        <ion-input (ionChange)="checkInput($event, dish)" [(ngModel)]="enteredDish" placeholder="{{dishes[idx].name}}" clearInput></ion-input> 
+    <ion-title (click)="openInputField(idx)" *ngIf="highLighted !== idx">{{dish.name}}</ion-title>
+    <ion-item *ngIf="highLighted === idx" class="item item-trns"> 
+        <ion-input autofocus (ionChange)="checkInput($event, dish)" [(ngModel)]="enteredDish" placeholder="{{dishes[idx].name}}" clearInput></ion-input> 
         <ion-icon *ngIf="showCheckmark" (click)="addDish(dish)" name="checkmark" item-right></ion-icon>
     </ion-item>
   </ion-card> 
-
-</ion-content>

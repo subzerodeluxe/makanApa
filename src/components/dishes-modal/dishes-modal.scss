@@ -7,6 +7,11 @@
               margin-right: auto;
           }
 
+          .error {
+              color: red;
+
+          }
+
           .block {
             background-color: #fe3233;
             padding: 5%;
@@ -40,20 +45,20 @@
         .item.item-trns {
             border-color: rgba(0, 0, 0, 0);
             background-color: rgba(0, 0, 0, 0);
-            color: white; 
+            color: #fff; 
         }
 
         .text-input::-moz-placeholder {
-            color: white;
+            color: #d1c55d;
         }
 
         .text-input:-ms-input-placeholder {
-            color: white;
+            color: #d1c55d;
         }
 
         .text-input::-webkit-input-placeholder {
             text-indent: 0;
-            color: white;
+            color: #d1c55d;
         }
 
       }
