@@ -40,21 +40,20 @@ export class DishesModalComponent {
     this.dishesProvider.initializeDishList(this.preDishList).then(dishes => {
       console.log("DE DISHES: " + JSON.stringify(dishes));
       this.dishes = dishes; 
-
     })
   }
 
-//   ionViewDidLoad() {
-//     this.timeout = setTimeout(() => { 
-//       this.dishesProvider.getAllDishes().then(dishes => {
-//         if(dishes === null) {
-//           this.showNoDishesWarning = true;
-//         } else {
-//           this.dishes = dishes; 
-//         }
-//       }) 
-//     }, 1000)
-// }
+  ionViewDidLoad() {
+    this.timeout = setTimeout(() => { 
+      this.dishesProvider.getAllDishes().then(dishes => {
+        if(dishes === null) {
+          this.showNoDishesWarning = true;
+        } else {
+          this.dishes = dishes; 
+        }
+      }) 
+    }, 1000)
+  }
 
   addDish(dish) {
     clearTimeout(this.timeout);
@@ -63,28 +62,19 @@ export class DishesModalComponent {
       this.showDish = true; 
     }, 500);
 
-    console.log("New dish: " + this.enteredDish)
     let index = this.dishes.indexOf(dish);
     let updatedDish = { name: this.enteredDish, active: true };
-    console.log("Index of dish: " + index);
+    console.log("Index of dish: " + index + " New dishObject " + JSON.stringify(updatedDish));
     
-    this.dishesProvider.addDish(updatedDish).then((data) => {
-        console.log("Huidige lijst met dishes: " + data); 
-      });
+    if(index >= -1) {
+      this.dishesProvider.addDish(updatedDish, index).then((data) => {
+        console.log("UPDATED LIST " + JSON.stringify(data)); 
+      })
+    } else {
+      console.log("JA DIT GAAT HELEMAAL FOUT"); 
     }
-
-    // if(index > -1) {
-    //   this.dishes[index] = { name: this.enteredDish, active: true };
-    //   let updatedDish = { name: this.enteredDish, active: true };
-
-    //   console.log("Dishes lijst: " + JSON.stringify(this.dishes)); 
-    //   // this.storage.set('name', `${this.enteredDish}`);
-
-    //   this.dishesProvider.addDish(updatedDish).then((data) => {
-    //       console.log("Huidige lijst met dishes: " + data); 
-    //     });
-    //   }
-    
+   
+  }
 
   checkInput(input, dish) {
     console.log("De tekst: " + input.value);
@@ -114,6 +104,20 @@ export class DishesModalComponent {
   closeMenuModal() {
     console.log("The modal is closed!"); 
     this.viewCtrl.dismiss();
+  }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+     
+    this.dishesProvider.getAllDishes().then(data => {
+      this.dishes = data; 
+    })
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 1000);
   }
  
 

@@ -20,14 +20,14 @@ export class DishesProvider {
     return this.storage.set(STORAGE_KEY, this.dishesList); 
   }
 
-  addDish(dishObject) {
+  addDish(dishObject, index) {
     return this.getAllDishes().then(result => {
       if (result) {
-        result.push(dishObject);      
+        result[index] = dishObject;  
         return this.storage.set(STORAGE_KEY, result);
       } else {
-        console.log("Niet gepushed naar list");
-        return this.storage.set(STORAGE_KEY, [dishObject]);
+        console.log("Niet gepushed naar list, want is leeg :(");
+        return this.storage.set(STORAGE_KEY, [index]); 
       }
     });
   }

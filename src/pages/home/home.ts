@@ -31,21 +31,7 @@ export class HomePage {
       this.state = 'big';
     }, 0);
   }
-
-  doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
-
-     
-    this.dishesProvider.getAllDishes().then(data => {
-      this.dishes = data; 
-    })
-
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      refresher.complete();
-    }, 1000);
-  }
-
+  
   onEnd(event) {
     this.state = 'small';
     if (event.toState === 'small') {

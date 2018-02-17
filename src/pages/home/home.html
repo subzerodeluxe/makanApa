@@ -1,28 +1,16 @@
 <ion-header>
   <ion-navbar color="primary">
-    <!-- <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button> -->
     <img alt="logo" src="../assets/imgs/main-logo.png" style="width:50%"/>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding scrollbar-y-auto>
-
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content  pullingText="Get dishes .."></ion-refresher-content>
-    </ion-refresher>
-
     
     <div padding-left class="intro">
         <p><span class="big">Oops!</span><br>
            It seems that you don't have enough dishes to spin the wheel!</p>
         <p>Please add dishes by pressing<br>the button in the bottom corner.</p>
     </div>
-
-  <ul *ngFor="let dish of dishes">
-    <li>{{dish.name}} - {{dish.active}}</li>
-  </ul >
 
   <ion-fab [@shake]="state" (@shake.done)="onEnd($event)" padding right bottom>
       <button (click)="openDishes()" ion-fab>
