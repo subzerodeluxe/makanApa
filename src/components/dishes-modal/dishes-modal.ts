@@ -37,26 +37,24 @@ export class DishesModalComponent {
       { name: "...", active: false },
       { name: "...", active: false }];
     
-    this.preDishList.forEach(dish => {
-      this.dishesProvider.addDish(dish).then((data => {
-        console.log("Dish wordt toegevoegd: " + JSON.stringify(data)); 
-      }))
-    });
+    this.dishesProvider.initializeDishList(this.preDishList).then(dishes => {
+      console.log("DE DISHES: " + JSON.stringify(dishes));
+      this.dishes = dishes; 
+
+    })
   }
 
-  ionViewDidLoad() {
-    this.timeout = setTimeout(() => { 
-      this.dishesProvider.getAllDishes().then(dishes => {
-      console.log("What are the dishes: " + JSON.stringify(dishes)); 
-        if(dishes === null) {
-          console.log("No dishes added yet!");
-          this.showNoDishesWarning = true;
-        } else {
-          this.dishes = dishes; 
-        }
-      }) 
-    }, 1000)
-}
+//   ionViewDidLoad() {
+//     this.timeout = setTimeout(() => { 
+//       this.dishesProvider.getAllDishes().then(dishes => {
+//         if(dishes === null) {
+//           this.showNoDishesWarning = true;
+//         } else {
+//           this.dishes = dishes; 
+//         }
+//       }) 
+//     }, 1000)
+// }
 
   addDish(dish) {
     clearTimeout(this.timeout);
@@ -101,14 +99,6 @@ export class DishesModalComponent {
     }, 400); 
   }
 
-  deleteDish(dish){
-    let index = this.dishes.indexOf(dish);
-
-    if(index > -1){
-        this.dishes.splice(index, 1);
-    }
-  }
-
   openInputField(dishObject) {
     let index = this.dishes.indexOf(dishObject);
     console.log("Deze input is nu open (index): " + index); 
@@ -117,12 +107,9 @@ export class DishesModalComponent {
       this.showInput = true; 
       this.showDish = false; 
     
-   
-  
-      
-    
     console.log("Welke dish? " + JSON.stringify(dishObject));
   }
+
 
   closeMenuModal() {
     console.log("The modal is closed!"); 

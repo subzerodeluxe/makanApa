@@ -1,25 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Dish } from '../../models/dish.interface';
 
 const STORAGE_KEY = 'allDishes';
 
 @Injectable()
 export class DishesProvider {
 
-  constructor(public storage: Storage) {
-  
+  dishesList: any[]; 
+  constructor(public storage: Storage) { }
+
+  initializeDishList(dishArray) {
+    this.dishesList = [];
+    dishArray.forEach(dish => {
+      this.dishesList.push(dish);
+    });
+    
+    return this.storage.set(STORAGE_KEY, this.dishesList); 
   }
 
   addDish(dishObject) {
-    console.log("INCOMING PROVIDER DISHOBJECT " + JSON.stringify(dishObject));
     return this.getAllDishes().then(result => {
-      console.log("PROVIDER RESULT: " + result);
       if (result) {
-        console.log("KOMT IE HIER?");
-        result.push(dishObject);
+        result.push(dishObject);      
         return this.storage.set(STORAGE_KEY, result);
       } else {
+        console.log("Niet gepushed naar list");
         return this.storage.set(STORAGE_KEY, [dishObject]);
       }
     });
