@@ -20,7 +20,7 @@
   <ion-card [ngClass]="{'disabled-block':dish.active === false, 'block':dish.active === true }" *ngFor="let dish of dishes; let idx = index">
     <ion-title (click)="openInputField(idx)" *ngIf="highLighted !== idx">{{dish.name}}</ion-title>
     <ion-item *ngIf="highLighted === idx" class="item item-trns"> 
-        <ion-input autofocus (ionChange)="checkInput($event, dish)" [(ngModel)]="enteredDish" placeholder="{{dishes[idx].name}}" clearInput></ion-input> 
+        <ion-input autofocus (ionChange)="checkInput($event, dish)" [(ngModel)]="enteredDish" placeholder="{{dish.name}}" clearInput></ion-input> 
         <ion-icon *ngIf="showCheckmark" (click)="addDish(dish)" name="checkmark" item-right></ion-icon>
     </ion-item>
   </ion-card> 

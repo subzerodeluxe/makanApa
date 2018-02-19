@@ -18,7 +18,6 @@ export class DishesProvider {
       this.dishesList.push(dish);
     });
     
-
     return this.storage.set(STORAGE_KEY, this.dishesList);
   }
 
@@ -29,7 +28,6 @@ export class DishesProvider {
     });
   }
 
-  
   getAllDishes() {
     return this.storage.get(STORAGE_KEY);
   }

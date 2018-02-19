@@ -41,7 +41,6 @@ export class DishesModalComponent {
       { name: "...", active: false },
       { name: "...", active: false }];
 
-
     this.dishesProvider.initializeDishList(this.preDishList).then(dishes => {
       console.log("DE DISHES: " + JSON.stringify(dishes));
       this.dishes = dishes; 
@@ -49,7 +48,12 @@ export class DishesModalComponent {
   }
 
   ionViewDidLoad() {
-    this.showAllDishes(); 
+    this.showAllDishes();
+    setTimeout(() => {
+      //this.checkBlocksForActive(this.dishes);
+      this.checkIfBlocksAreActive(this.dishes); 
+    }, 800); 
+    
   }
 
   addDish(dish) {
@@ -62,11 +66,30 @@ export class DishesModalComponent {
         console.log("UPDATED LIST " + JSON.stringify(data)); 
         this.highLighted = null;
         this.showAllDishes();
+        this.enteredDish = "..."; 
       })
     } else {
       this.showNoDishesWarning = true;
       console.log("JA DIT GAAT HELEMAAL FOUT"); 
     }
+  }
+
+  checkIfBlocksAreActive(dishesArray) {
+    let allActive;
+
+    for (let index = 0; index < dishesArray.length;) {
+      const dish = dishesArray[index];
+      if(dish.active === true) {
+        //console.log("True: " + JSON.stringify(dish.active));
+        index++; 
+        //return allActive = true; 
+      }
+    }
+
+    dishesArray.forEach(dish => {
+      console.log("All dishes " + dish); 
+    });
+
   }
 
   showAllDishes() {
@@ -92,7 +115,7 @@ export class DishesModalComponent {
       } else {
         this.showCheckmark = false; 
       }
-    }, 400); 
+    }, 300); 
   }
 
   openInputField(index) {
