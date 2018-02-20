@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, ViewController } from 'ionic-angular';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Platform } from 'ionic-angular/platform/platform';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Dish } from '../../models/dish.interface';
 import { DishesProvider } from '../../providers/dishes/dishes';
+import { AlertsProvider } from '../../providers/alerts/alerts';
 
 @IonicPage({
   name: 'dishesModal'
@@ -23,10 +23,10 @@ export class DishesModalComponent {
   timeout = null;
   enteredDish: string;
   showInput: boolean = false;
-  showDish: boolean = true; 
+  showDish: boolean = true;
 
   constructor(public platform: Platform, public dishesProvider: DishesProvider, public screenOrientation: ScreenOrientation, 
-    public viewCtrl: ViewController) {
+    public viewCtrl: ViewController, public alert: AlertsProvider) {
     if(this.platform.is('cordova')) {
       // set to portrait mode
      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
@@ -44,15 +44,16 @@ export class DishesModalComponent {
     this.dishesProvider.initializeDishList(this.preDishList).then(dishes => {
       console.log("DE DISHES: " + JSON.stringify(dishes));
       this.dishes = dishes; 
-    })
+    }).catch(error => {
+      console.log(JSON.stringify(error)); 
+    });
   }
 
   ionViewDidLoad() {
     this.showAllDishes();
     setTimeout(() => {
-      //this.checkBlocksForActive(this.dishes);
-      this.checkIfBlocksAreActive(this.dishes); 
-    }, 800); 
+      console.log(this.checkIfBlocksAreActive(this.dishes)); 
+    }, 1000); 
     
   }
 
@@ -66,35 +67,32 @@ export class DishesModalComponent {
         console.log("UPDATED LIST " + JSON.stringify(data)); 
         this.highLighted = null;
         this.showAllDishes();
-        this.enteredDish = "..."; 
+        this.enteredDish = "...";
+        let outcome = this.checkIfBlocksAreActive(data);
+        if(outcome === true) { this.alert.showAlertMessage("Hooray!", "You can now spin the wheel", "OK")}; 
       })
     } else {
-      this.showNoDishesWarning = true;
       console.log("JA DIT GAAT HELEMAAL FOUT"); 
+      this.showNoDishesWarning = true;
     }
   }
 
-  checkIfBlocksAreActive(dishesArray) {
-    let allActive;
-
-    for (let index = 0; index < dishesArray.length;) {
-      const dish = dishesArray[index];
-      if(dish.active === true) {
-        //console.log("True: " + JSON.stringify(dish.active));
-        index++; 
-        //return allActive = true; 
-      }
+  checkIfBlocksAreActive(dishesArray): boolean {
+    let allActive; let notActive; 
+    notActive = dishesArray.filter(dish => dish.active === false);
+    if(notActive.length >= 1) {
+      return allActive = false; 
+    } else {
+      return allActive = true;
     }
-
-    dishesArray.forEach(dish => {
-      console.log("All dishes " + dish); 
-    });
-
   }
+
+   
 
   showAllDishes() {
     this.dishesProvider.getAllDishes().then(dishes => {
       if(dishes === null) {
+        console.log("Ja, en toen waren er ineens geen dishes"); 
         this.showNoDishesWarning = true;
       } else {
         this.dishes = dishes; 
