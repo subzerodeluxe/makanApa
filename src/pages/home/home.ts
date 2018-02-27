@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController, IonicPage } from 'ionic-angular';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 import { DishesProvider } from '../../providers/dishes/dishes';
 import { Dish } from '../../models/dish.interface';
 
@@ -24,7 +25,7 @@ export class HomePage {
   state: string = 'small';
   dishes: Dish[]; 
 
-  constructor(public navCtrl: NavController, public modalCtr: ModalController, public dishesProvider: DishesProvider) { }
+  constructor(public navCtrl: NavController, private nativePageTransitions: NativePageTransitions, public modalCtr: ModalController, public dishesProvider: DishesProvider) { }
 
   ionViewDidLoad() {
     setTimeout(() => {
@@ -42,7 +43,15 @@ export class HomePage {
   }
 
   openDishes() {
-    let dishesModal = this.modalCtr.create('dishesModal', { test: "testing" }); 
+    let options: NativeTransitionOptions = {
+      direction: 'left',
+      duration: 400,
+      slowdownfactor: -1,
+      androiddelay: 50
+     };
+ 
+    this.nativePageTransitions.slide(options);
+    let dishesModal = this.modalCtr.create('dishesModal'); 
     dishesModal.present(); 
   }
 }

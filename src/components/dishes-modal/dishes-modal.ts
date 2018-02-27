@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, ViewController } from 'ionic-angular';
+import { IonicPage, ViewController, NavController } from 'ionic-angular';
 import { Platform } from 'ionic-angular/platform/platform';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Dish } from '../../models/dish.interface';
 import { DishesProvider } from '../../providers/dishes/dishes';
-import { AlertsProvider } from '../../providers/alerts/alerts';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
 @IonicPage({
   name: 'dishesModal'
@@ -26,7 +26,7 @@ export class DishesModalComponent {
   showDish: boolean = true;
 
   constructor(public platform: Platform, public dishesProvider: DishesProvider, public screenOrientation: ScreenOrientation, 
-    public viewCtrl: ViewController, public alert: AlertsProvider) {
+    public viewCtrl: ViewController, private nativePageTransitions: NativePageTransitions, public navCtrl: NavController) {
     if(this.platform.is('cordova')) {
       // set to portrait mode
      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
@@ -69,7 +69,7 @@ export class DishesModalComponent {
         this.showAllDishes();
         this.enteredDish = "...";
         let outcome = this.checkIfBlocksAreActive(data);
-        if(outcome === true) { this.alert.showAlertMessage("Hooray!", "You can now spin the wheel", "OK")}; 
+        if(outcome === true) { this.navCtrl.setRoot('home'); }; 
       })
     } else {
       console.log("JA DIT GAAT HELEMAAL FOUT"); 
@@ -122,8 +122,23 @@ export class DishesModalComponent {
 
 
   closeMenuModal() {
-    console.log("The modal is closed!"); 
-    this.viewCtrl.dismiss();
+    if (this.navCtrl.canGoBack()) {
+      let options: NativeTransitionOptions = {
+        direction: 'down',
+        duration: 500,
+        slowdownfactor: -1,
+        slidePixels: 20,
+      };
+  
+      this.nativePageTransitions.slide(options);
+      this.navCtrl.pop();
+    } else {
+      let options: NativeTransitionOptions = {
+        duration: 700
+      };
+      this.nativePageTransitions.fade(options);
+      this.viewCtrl.dismiss();
+    }
   }
 
 
