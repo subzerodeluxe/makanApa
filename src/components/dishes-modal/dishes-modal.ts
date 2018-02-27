@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, ViewController, NavController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, ViewController, NavController, Content } from 'ionic-angular';
 import { Platform } from 'ionic-angular/platform/platform';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Dish } from '../../models/dish.interface';
@@ -14,6 +14,7 @@ import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/na
   templateUrl: 'dishes-modal.html'
 })
 export class DishesModalComponent {
+  @ViewChild(Content) content: Content;
   
   highLighted: number; 
   preDishList: Dish[]; 
@@ -55,6 +56,7 @@ export class DishesModalComponent {
       console.log(this.checkIfBlocksAreActive(this.dishes)); 
     }, 1000); 
     
+    this.content.scrollToTop();
   }
 
   addDish(dish) {

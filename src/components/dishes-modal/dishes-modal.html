@@ -1,11 +1,5 @@
 <ion-header>
     <ion-navbar color="primary">
-        <ion-buttons end>
-            <button ion-button icon-only (click)="closeMenuModal()">
-              <ion-icon name="close"></ion-icon>
-            </button>
-          </ion-buttons>
-      
       <img alt="logo" src="../assets/imgs/main-logo.png" style="width:50%"/>
     </ion-navbar>
   </ion-header>
@@ -16,7 +10,13 @@
   <ion-card [ngClass]="{'disabled-block':dish.active === false, 'block':dish.active === true }" *ngFor="let dish of dishes; let idx = index">
     <ion-title (click)="openInputField(idx)" *ngIf="highLighted !== idx">{{dish.name}}</ion-title>
     <ion-item *ngIf="highLighted === idx" class="item item-trns"> 
-        <ion-input autofocus (ionChange)="checkInput($event, dish)" [(ngModel)]="enteredDish" placeholder="{{dish.name}}" clearInput></ion-input> 
+        <ion-input (ionChange)="checkInput($event, dish)" [(ngModel)]="enteredDish" placeholder="{{dish.name}}" clearInput></ion-input> 
         <ion-icon *ngIf="showCheckmark" (click)="addDish(dish)" name="checkmark" item-right></ion-icon>
     </ion-item>
   </ion-card> 
+
+  <div class="center">
+      <button padding-left ion-button (click)="closeMenuModal()">Go back</button>
+  </div>
+
+</ion-content>

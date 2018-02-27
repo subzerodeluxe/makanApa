@@ -8,7 +8,7 @@ const STORAGE_KEY = 'allDishes';
 @Injectable()
 export class DishesProvider {
 
-  dishesList: any[];
+  dishesList: Dish[];
   constructor(public storage: Storage) { }
 
   initializeDishList(dishArray) {

@@ -53,5 +53,4 @@ export class WelcomePage {
     this.nativePageTransitions.slide(options);
     this.navCtrl.setRoot('home'); 
   }
-
 }

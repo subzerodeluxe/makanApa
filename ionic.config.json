@@ -1,8 +1,8 @@
 {
   "name": "makanApa",
-  "app_id": "32885621",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "app_id": "32885621"
 }
