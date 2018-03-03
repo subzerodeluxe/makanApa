@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, ViewController, NavController, Content } from 'ionic-angular';
+import { IonicPage, ViewController, NavController } from 'ionic-angular';
 import { Platform } from 'ionic-angular/platform/platform';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Dish } from '../../models/dish.interface';
 import { DishesProvider } from '../../providers/dishes/dishes';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @IonicPage({
   name: 'dishesModal'
@@ -14,24 +15,31 @@ import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/na
   templateUrl: 'dishes-modal.html'
 })
 export class DishesModalComponent {
-  @ViewChild(Content) content: Content;
-  
+
+  form: FormGroup; 
   highLighted: number; 
   preDishList: Dish[]; 
   dishes: Dish[];
   showNoDishesWarning: boolean = false; 
   showCheckmark: boolean = false; 
   timeout = null;
-  enteredDish: string;
   showInput: boolean = false;
   showDish: boolean = true;
 
   constructor(public platform: Platform, public dishesProvider: DishesProvider, public screenOrientation: ScreenOrientation, 
-    public viewCtrl: ViewController, private nativePageTransitions: NativePageTransitions, public navCtrl: NavController) {
+    public viewCtrl: ViewController, private formBuilder: FormBuilder, private nativePageTransitions: NativePageTransitions, public navCtrl: NavController) {
     if(this.platform.is('cordova')) {
       // set to portrait mode
      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     }
+
+    this.buildForm(); 
+  }
+
+  buildForm() {
+    this.form = this.formBuilder.group({
+      dishName: ['', [Validators.required, Validators.minLength(2)]]
+    });
   }
 
   ionViewWillLoad() {
@@ -55,28 +63,39 @@ export class DishesModalComponent {
     setTimeout(() => {
       console.log(this.checkIfBlocksAreActive(this.dishes)); 
     }, 1000); 
-    
-    this.content.scrollToTop();
   }
 
-  addDish(dish) {
-    let index = this.dishes.indexOf(dish);
-    let updatedDish = { name: this.enteredDish, active: true };
-    console.log("Index of dish: " + index + " New dishObject " + JSON.stringify(updatedDish));
-    
-    if(index >= -1) {
-      this.dishesProvider.addDish(updatedDish, index).then((data) => {
-        console.log("UPDATED LIST " + JSON.stringify(data)); 
-        this.highLighted = null;
-        this.showAllDishes();
-        this.enteredDish = "...";
-        let outcome = this.checkIfBlocksAreActive(data);
-        if(outcome === true) { this.navCtrl.setRoot('home'); }; 
-      })
-    } else {
-      console.log("JA DIT GAAT HELEMAAL FOUT"); 
-      this.showNoDishesWarning = true;
+  addDish(formData: FormGroup, dish: Dish) {
+    if(formData.valid == true) {
+      let index = this.dishes.indexOf(dish); 
+      let updatedDish: Dish = { name: this.form.value.dishName, active: true }; 
+      if(index >= -1) {
+        this.dishesProvider.addDish(updatedDish, index).then((data) => {
+          console.log("UPDATED LIST " + JSON.stringify(data)); 
+          this.highLighted = null;
+          this.showAllDishes();
+          this.buildForm(); 
+          let outcome = this.checkIfBlocksAreActive(data);
+          if(outcome === true) { this.navCtrl.setRoot('home'); }; 
+        })
+      } else {
+        console.log("JA DIT GAAT HELEMAAL FOUT"); 
+        this.showNoDishesWarning = true;
+      }
     }
+  }
+
+  checkInput(form, dish) {
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      if(form.valid === true) {
+        this.showCheckmark = true;
+        dish.active = true;
+      } else {
+        this.showCheckmark = false; 
+        dish.active = false; 
+      }
+    }, 200); 
   }
 
   checkIfBlocksAreActive(dishesArray): boolean {
@@ -102,20 +121,7 @@ export class DishesModalComponent {
     }).catch(error => {
       this.showNoDishesWarning = true;
       console.log("Something went wrong: " + error); 
-    })
-  }
-
-  checkInput(input, dish) {
-    console.log("De tekst: " + input.value);
-    console.log("Oorspronkelijke dish: " + dish.name)
-    clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => {
-      if(input.value.length >= 1) {
-        this.showCheckmark = true;
-      } else {
-        this.showCheckmark = false; 
-      }
-    }, 300); 
+    }) 
   }
 
   openInputField(index) {
