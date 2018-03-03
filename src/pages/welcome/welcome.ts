@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { trigger, style, transition, animate, keyframes } from '@angular/animations';
-import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
 @IonicPage({
   name: 'welcome'
@@ -26,7 +25,7 @@ export class WelcomePage {
 
   show: boolean = true;
   
-  constructor(public navCtrl: NavController, private nativePageTransitions: NativePageTransitions, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
     setTimeout(() => {
@@ -43,14 +42,6 @@ export class WelcomePage {
   }
 
   skipPage() {
-    let options: NativeTransitionOptions = {
-      direction: 'left',
-      duration: 400,
-      slowdownfactor: -1,
-      androiddelay: 50
-     };
- 
-    this.nativePageTransitions.slide(options);
     this.navCtrl.setRoot('home'); 
   }
 }

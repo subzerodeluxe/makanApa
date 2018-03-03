@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule, Injectable, Injector } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, Config, PageTransition, Animation } from 'ionic-angular';
 import { Pro } from '@ionic/pro';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -10,6 +10,8 @@ import { MakanApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { DishesProvider } from '../providers/dishes/dishes';
+import { ModalScaleUpLeaveTransition } from './scale-up-leave.transition';
+import { ModalScaleUpEnterTransition } from './scale-up-enter.transition';
 
 const IonicPro = Pro.init('32885621', {
   appVersion: '0.0.1'
@@ -60,4 +62,13 @@ export class MyErrorHandler implements ErrorHandler {
     DishesProvider
   ]
 })
-export class AppModule {}
+export class AppModule { 
+  constructor(public config: Config) {
+    this.setCustomTransitions();
+  }
+
+  private setCustomTransitions() {
+    this.config.setTransition('modal-scale-up-leave', ModalScaleUpLeaveTransition);
+    this.config.setTransition('modal-scale-up-enter', ModalScaleUpEnterTransition);
+  }
+} 

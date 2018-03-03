@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { WelcomePage } from './welcome';
-import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 
 @NgModule({
   declarations: [
@@ -10,8 +9,6 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions';
   imports: [
     IonicPageModule.forChild(WelcomePage),
   ],
-  providers: [
-    NativePageTransitions
-  ]
+  providers: []
 })
 export class WelcomePageModule {}

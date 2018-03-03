@@ -4,7 +4,6 @@ import { Platform } from 'ionic-angular/platform/platform';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Dish } from '../../models/dish.interface';
 import { DishesProvider } from '../../providers/dishes/dishes';
-import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @IonicPage({
@@ -27,7 +26,7 @@ export class DishesModalComponent {
   showDish: boolean = true;
 
   constructor(public platform: Platform, public dishesProvider: DishesProvider, public screenOrientation: ScreenOrientation, 
-    public viewCtrl: ViewController, private formBuilder: FormBuilder, private nativePageTransitions: NativePageTransitions, public navCtrl: NavController) {
+    public viewCtrl: ViewController, private formBuilder: FormBuilder, public navCtrl: NavController) {
     if(this.platform.is('cordova')) {
       // set to portrait mode
      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
@@ -130,24 +129,6 @@ export class DishesModalComponent {
 
 
   closeMenuModal() {
-    if (this.navCtrl.canGoBack()) {
-      let options: NativeTransitionOptions = {
-        direction: 'down',
-        duration: 500,
-        slowdownfactor: -1,
-        slidePixels: 20,
-      };
-  
-      this.nativePageTransitions.slide(options);
-      this.navCtrl.pop();
-    } else {
-      let options: NativeTransitionOptions = {
-        duration: 700
-      };
-      this.nativePageTransitions.fade(options);
-      this.viewCtrl.dismiss();
-    }
+    this.viewCtrl.dismiss();
   }
-
-
 } 
