@@ -1,8 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, ModalController, IonicPage } from 'ionic-angular';
+import { NavController, ModalController, IonicPage, NavParams, Platform } from 'ionic-angular';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { DishesProvider } from '../../providers/dishes/dishes';
-import { Dish } from '../../models/dish.interface';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 @IonicPage({
   name: 'home'
@@ -22,9 +21,14 @@ import { Dish } from '../../models/dish.interface';
 export class HomePage {
   
   state: string = 'small';
-  dishes: Dish[]; 
 
-  constructor(public navCtrl: NavController, public modalCtr: ModalController, public dishesProvider: DishesProvider) { }
+  constructor(public navCtrl: NavController, public platform: Platform, 
+    public screenOrientation: ScreenOrientation, public modalCtr: ModalController, public navParams: NavParams) {
+    if(this.platform.is('cordova')) {
+      // set to portrait mode
+     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+    }
+  }
 
   ionViewDidLoad() {
     setTimeout(() => {

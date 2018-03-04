@@ -1,22 +1,37 @@
-<ion-header>
-  <ion-navbar color="primary">
-    <img alt="logo" src="../assets/imgs/main-logo.png" style="width:50%"/>
-  </ion-navbar>
-</ion-header>
+<ion-slides pager="true">
+    <ion-slide>
+      <img style="width:50%" src="../assets/imgs/main-logo.png" />
+      <ion-row>
+          <ion-col>
+            <p>Oh no! It seems that you don't have enough dishes to spin the wheel.
+                Let's explain how this app works!
+            </p> 
+          </ion-col>
+        </ion-row>
+    </ion-slide>
+   
+    <ion-slide>
+      <img style="width:50%" src="../assets/imgs/main-logo.png" />
+      <ion-row>
+          <ion-col>
+            <p>It is super easy!</p> 
+          </ion-col>
+        </ion-row>
+    </ion-slide>
+   
+    <ion-slide>
+      <img style="width:50%" src="../assets/imgs/main-logo.png" />
+      <ion-row>
+          <ion-col>
+            <p>Just click the yellow button to start!</p> 
+          </ion-col>
+        </ion-row>
+    </ion-slide>
+  </ion-slides>
 
-<wheel></wheel>
-<ion-content padding scrollbar-y-auto>
-    <div padding-left class="intro">
-        <p><span class="big">Oops!</span><br>
-           It seems that you don't have enough dishes to spin the wheel!</p>
-        <p>Please add dishes by pressing<br>the button in the bottom corner.</p>
-    </div>
-
-  <ion-fab [@shake]="state" (@shake.done)="onEnd($event)" padding right bottom>
-      <button (click)="openDishes()" ion-fab>
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-fab>
-</ion-content>
-
+<ion-fab [@shake]="state" (@shake.done)="onEnd($event)" padding right bottom>
+  <button color="secondary" (click)="openDishes()" ion-fab>
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>
 

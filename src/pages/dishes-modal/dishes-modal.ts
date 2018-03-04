@@ -24,6 +24,7 @@ export class DishesModalComponent {
   timeout = null;
   showInput: boolean = false;
   showDish: boolean = true;
+  showForm: boolean; 
 
   constructor(public platform: Platform, public dishesProvider: DishesProvider, public screenOrientation: ScreenOrientation, 
     public viewCtrl: ViewController, private formBuilder: FormBuilder, public navCtrl: NavController) {
@@ -31,7 +32,7 @@ export class DishesModalComponent {
       // set to portrait mode
      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     }
-
+    this.showForm = true; 
     this.buildForm(); 
   }
 
@@ -53,6 +54,7 @@ export class DishesModalComponent {
       console.log("DE DISHES: " + JSON.stringify(dishes));
       this.dishes = dishes; 
     }).catch(error => {
+      this.dishes = []; 
       console.log(JSON.stringify(error)); 
     });
   }
@@ -60,8 +62,8 @@ export class DishesModalComponent {
   ionViewDidLoad() {
     this.showAllDishes();
     setTimeout(() => {
-      console.log(this.checkIfBlocksAreActive(this.dishes)); 
-    }, 1000); 
+      this.checkIfBlocksAreActive(this.dishes);  
+    }, 1000);
   }
 
   addDish(formData: FormGroup, dish: Dish) {
@@ -75,7 +77,8 @@ export class DishesModalComponent {
           this.showAllDishes();
           this.buildForm(); 
           let outcome = this.checkIfBlocksAreActive(data);
-          if(outcome === true) { this.navCtrl.setRoot('home'); }; 
+          if(outcome === true) { this.showForm = false }; 
+          console.log("YEEHAAA");
         })
       } else {
         console.log("JA DIT GAAT HELEMAAL FOUT"); 
@@ -127,8 +130,4 @@ export class DishesModalComponent {
     this.highLighted = index;
   }
 
-
-  closeMenuModal() {
-    this.viewCtrl.dismiss();
-  }
 } 
