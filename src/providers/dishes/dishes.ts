@@ -31,4 +31,15 @@ export class DishesProvider {
   getAllDishes() {
     return this.storage.get(STORAGE_KEY);
   }
+
+  checkIfBlocksAreActive(dishesArray): boolean {
+    let allActive; let notActive; 
+    notActive = dishesArray.filter(dish => dish.active === false);
+    if(notActive.length >= 1) {
+      return allActive = false; 
+    } else {
+      return allActive = true;
+    }
+  }
+
 }

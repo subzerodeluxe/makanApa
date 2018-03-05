@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { WheelComponent } from './wheel/wheel';
 import { IonicModule } from 'ionic-angular';
+import { DishesFormComponent } from './dishes-form/dishes-form';
 @NgModule({
-	declarations: [WheelComponent],
+	declarations: [WheelComponent,
+    DishesFormComponent],
 	imports: [IonicModule],
-	exports: [WheelComponent]
+	exports: [WheelComponent,
+    DishesFormComponent]
 })
 export class ComponentsModule {}

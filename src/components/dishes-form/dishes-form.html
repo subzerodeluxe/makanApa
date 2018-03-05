@@ -1,0 +1,15 @@
+<form [formGroup]="dishForm" *ngFor="let dish of dishes; let idx = index" (ngSubmit)="addDish(dishForm, dish)">
+  <ion-card  [ngClass]="{'disabled-block':dish.active === false, 'block':dish.active === true }">
+      <ion-title (click)="openInputField(idx)" *ngIf="highLighted !== idx">{{ dish.name }}</ion-title>
+      <ion-item *ngIf="highLighted === idx" class="item item-trns">
+        <ion-input (ionChange)="checkInput(dishForm, dish)" type="text" placeholder="{{dish.name}}" 
+          formControlName="dishName" clearInput></ion-input>
+        <ion-icon *ngIf="showCheckmark" name="checkmark" item-right></ion-icon>
+      </ion-item>
+  </ion-card>
+</form>
+
+<button class="center" (click)="resetForm()" ion-button icon-start>
+  Delete dishes
+  <ion-icon padding-left name="trash"></ion-icon>
+</button>
