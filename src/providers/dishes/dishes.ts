@@ -8,17 +8,10 @@ const STORAGE_KEY = 'allDishes';
 @Injectable()
 export class DishesProvider {
 
-  dishesList: Dish[];
   constructor(public storage: Storage) { }
 
-  initializeDishList(dishArray) {
-    
-    this.dishesList = [];
-    dishArray.forEach(dish => {
-      this.dishesList.push(dish);
-    });
-    
-    return this.storage.set(STORAGE_KEY, this.dishesList);
+  initializeDishList(dishArray): Promise<Dish[]> {
+    return this.storage.set(STORAGE_KEY, dishArray);
   }
 
   addDish(dishObject, index) {

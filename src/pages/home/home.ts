@@ -45,11 +45,11 @@ export class HomePage {
     }
   }
 
-  openDishes() {
-    const dishesModal = this.modalCtr.create('dishesModal', {
-      enterAnimation: 'modal-scale-up-enter',
-      leaveAnimation: 'modal-scale-up-leave'
-    });
-    dishesModal.present(); 
+  openActionPage() {
+    const animationsOptions = {
+      animation: 'md-transition',
+      duration: 1000
+    }
+    this.navCtrl.push('action', {}, animationsOptions); 
   }
 }

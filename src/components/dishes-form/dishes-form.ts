@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Dish } from '../../models/dish.interface';
 import { DishesProvider } from '../../providers/dishes/dishes';
+import { NavController } from 'ionic-angular';
 
 @Component({
   selector: 'dishes-form',
@@ -21,11 +22,15 @@ export class DishesFormComponent {
     { name: "...", active: false },
     { name: "...", active: false }];
 
-  constructor(public formBuilder: FormBuilder, public dishesProvider: DishesProvider) {
+  constructor(public formBuilder: FormBuilder, public navCtrl: NavController, public dishesProvider: DishesProvider) {
     this.buildForm();
+
     this.dishesProvider.initializeDishList(this.initialDishList)
-      .then(data => this.dishes = data)
-      .catch(error => console.log(error));
+      .then(data => {
+        console.log(data)
+        this.dishes = data; 
+      })
+      .catch(error => console.log(error)); 
   }
 
   buildForm() {

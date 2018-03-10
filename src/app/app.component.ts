@@ -10,7 +10,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 export class MakanApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = 'welcome';
+  rootPage: any = 'welcomePage';
 
   pages: Array<{title: string, component: any}>;
 
@@ -32,7 +32,6 @@ export class MakanApp {
          // set to landscape
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
       } 
-    
     });
   }
  

@@ -3,12 +3,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { trigger, style, transition, animate, keyframes } from '@angular/animations';
 
 @IonicPage({
-  name: 'welcome'
+  name: 'welcomePage'
 })
 
 @Component({
-  selector: 'page-welcome',
-  templateUrl: 'welcome.html',
+  selector: 'page-welcome-splash',
+  templateUrl: 'welcome-splash.html',
   animations: [
     trigger('fadeOut', [
       transition(':leave',[ // "* => void"
@@ -21,7 +21,7 @@ import { trigger, style, transition, animate, keyframes } from '@angular/animati
       ])
     ]
 })
-export class WelcomePage {
+export class WelcomeSplashPage {
 
   show: boolean = true;
   
@@ -32,6 +32,8 @@ export class WelcomePage {
       this.startAnimate();
       //this.skipPage();
     }, 3000); 
+
+    console.log("Good. The new welcome-splash is working");
   }
 
   startAnimate() {
@@ -44,4 +46,5 @@ export class WelcomePage {
   skipPage() {
     this.navCtrl.setRoot('home'); 
   }
+
 }
