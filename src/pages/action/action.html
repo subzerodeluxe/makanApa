@@ -1,12 +1,13 @@
 <ion-header>
-  <ion-navbar color="primary">  <!-- hideBackButton="true"  --> 
+  <ion-navbar hideBackButton="true" color="primary">  <!-- hideBackButton="true"  --> 
     <img alt="logo" src="../assets/imgs/main-logo.png" style="width:50%"/>
   </ion-navbar>
 </ion-header>
 
 <ion-content scroll="true">
 
-<dishes-form></dishes-form>
+<dishes-form *ngIf="showWheel === false" (allActiveEvent)="checkBlocks($event)"></dishes-form>
+<wheel *ngIf="showWheel === true"></wheel>
 
 </ion-content>
 

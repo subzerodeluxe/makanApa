@@ -13,6 +13,7 @@ import { DishesProvider } from '../../providers/dishes/dishes';
 })
 export class ActionPage {
 
+  showWheel: boolean = false; 
   public initialDishList: Dish[] = [
     { name: "Sop", active: true }, 
     { name: "Stamppot Andijvie", active: true },
@@ -40,5 +41,12 @@ export class ActionPage {
 
 
     // check if there are dishes --> so wheel can be shown || show the dishes-form 
+  }
+
+  checkBlocks($event) {
+    console.log($event); 
+    if($event === true) {
+      this.showWheel = true; 
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Dish } from '../../models/dish.interface';
 import { DishesProvider } from '../../providers/dishes/dishes';
@@ -10,12 +10,15 @@ import { NavController } from 'ionic-angular';
 })
 export class DishesFormComponent {
 
+  @Output() allActiveEvent = new EventEmitter<any>(); 
+
   error: any; 
   dishForm: FormGroup;
   dishes: Dish[];
   highLighted: boolean;
   timeout = null;
   showCheckmark: boolean = false; 
+  errMessage: string = "Trouble getting your dishes. Please press the back button on your phone and try again!";
   
   constructor(public formBuilder: FormBuilder, public navCtrl: NavController, public dishesProvider: DishesProvider) { 
     this.initializeDishesForm();
@@ -28,7 +31,7 @@ export class DishesFormComponent {
           this.buildForm();
           this.dishes = data
         } else {
-          this.error = "Trouble getting your dishes. Please press the back button on your phone and try again!"; 
+          this.error = this.errMessage;
         }
       })
   }
@@ -66,9 +69,9 @@ export class DishesFormComponent {
             this.highLighted = null;
             this.buildForm(); 
             this.showAllDishes();
+            
             const outcome = this.dishesProvider.checkIfBlocksAreActive(data);
-            if(outcome === true) { console.log("ALL IS RED!") }; 
-            console.log("Added dish: " + updatedDish.name);
+            this.allActiveEvent.emit(outcome)
           })
           .catch(error => {
             console.log("Error: " + JSON.stringify(error));
@@ -80,16 +83,13 @@ export class DishesFormComponent {
   }
 
   showAllDishes() {
-    this.dishesProvider.getAllDishes().then(dishes => {
-      if(dishes === null) {
-        console.log("Ja, en toen waren er ineens geen dishes"); 
-       
-      } else {
-        this.dishes = dishes; 
-      }
-    }).catch(error => {
-   
-      console.log("Something went wrong: " + error); 
+    this.dishesProvider.getAllDishes()
+      .then(dishes => {
+        if(dishes === null) {
+          this.error = this.errMessage; 
+        } else {
+          this.dishes = dishes; 
+        }
     }) 
   }
 }

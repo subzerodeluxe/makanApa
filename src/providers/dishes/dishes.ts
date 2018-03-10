@@ -14,7 +14,7 @@ export class DishesProvider {
     return this.storage.set(STORAGE_KEY, dishArray);
   }
 
-  addDish(dishObject, index) {
+  addDish(dishObject, index): Promise<Dish[]> {
     return this.getAllDishes().then(result => {
       result[index] = dishObject;  
       return this.storage.set(STORAGE_KEY, result);
@@ -34,5 +34,6 @@ export class DishesProvider {
       return allActive = true;
     }
   }
+
 
 }
