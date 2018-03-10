@@ -10,27 +10,27 @@ import { NavController } from 'ionic-angular';
 })
 export class DishesFormComponent {
 
+  error: any; 
   dishForm: FormGroup;
   dishes: Dish[];
   highLighted: boolean;
   timeout = null;
   showCheckmark: boolean = false; 
-  public initialDishList: Dish[] = [
-    { name: "Sop", active: true }, 
-    { name: "Stamppot Andijvie", active: true },
-    { name: "Nasi Goreng", active: true },
-    { name: "...", active: false },
-    { name: "...", active: false }];
+  
+  constructor(public formBuilder: FormBuilder, public navCtrl: NavController, public dishesProvider: DishesProvider) { 
+    this.initializeDishesForm();
+  }
 
-  constructor(public formBuilder: FormBuilder, public navCtrl: NavController, public dishesProvider: DishesProvider) {
-    this.buildForm();
-
-    this.dishesProvider.initializeDishList(this.initialDishList)
+  initializeDishesForm() {
+    this.dishesProvider.getAllDishes()
       .then(data => {
-        console.log(data)
-        this.dishes = data; 
+        if(data != null) {
+          this.buildForm();
+          this.dishes = data
+        } else {
+          this.error = "Trouble getting your dishes. Please press the back button on your phone and try again!"; 
+        }
       })
-      .catch(error => console.log(error)); 
   }
 
   buildForm() {
@@ -91,15 +91,5 @@ export class DishesFormComponent {
    
       console.log("Something went wrong: " + error); 
     }) 
-  }
-
-  resetForm() {
-    this.dishesProvider.initializeDishList(this.initialDishList)
-      .then(data => { 
-        this.dishes = data; 
-        console.log("Dishes after deletion: " + JSON.stringify(this.dishes));
-      })
-      .catch(error => console.log(error));
-      this.buildForm();
   }
 }

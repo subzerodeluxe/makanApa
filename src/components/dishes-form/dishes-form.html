@@ -1,3 +1,5 @@
+<p padding text-center class="error" *ngIf="error">{{ error }}</p>
+
 <form [formGroup]="dishForm" *ngFor="let dish of dishes; let idx = index" (ngSubmit)="addDish(dishForm, dish)">
   <ion-card  [ngClass]="{'disabled-block':dish.active === false, 'block':dish.active === true }">
       <ion-title (click)="openInputField(idx)" *ngIf="highLighted !== idx">{{ dish.name }}</ion-title>
@@ -8,6 +10,9 @@
       </ion-item>
   </ion-card>
 </form>
+
+
+
 
 <!-- <button class="center" (click)="resetForm()" ion-button icon-start>
   Delete dishes

@@ -18,11 +18,11 @@ export class DishesProvider {
     return this.getAllDishes().then(result => {
       result[index] = dishObject;  
       return this.storage.set(STORAGE_KEY, result);
-    });
+    })
   }
 
-  getAllDishes() {
-    return this.storage.get(STORAGE_KEY);
+  getAllDishes(): Promise<Dish[]> {
+    return this.storage.get(STORAGE_KEY); 
   }
 
   checkIfBlocksAreActive(dishesArray): boolean {
