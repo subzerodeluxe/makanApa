@@ -10,11 +10,12 @@ export class DishesProvider {
 
   constructor(public storage: Storage) { }
 
-  initializeDishList(dishArray): Promise<Dish[]> {
-    return this.storage.set(STORAGE_KEY, dishArray);
+  initializeDishList(dishesArray: Dish[]): Promise<Dish[]> {
+    console.log("Dishes provider: dishes succesfully set"); 
+    return this.storage.set(STORAGE_KEY, dishesArray);
   }
 
-  addDish(dishObject, index): Promise<Dish[]> {
+  addDish(dishObject: Dish, index: number): Promise<Dish[]> {
     return this.getAllDishes().then(result => {
       result[index] = dishObject;  
       return this.storage.set(STORAGE_KEY, result);
@@ -25,7 +26,7 @@ export class DishesProvider {
     return this.storage.get(STORAGE_KEY); 
   }
 
-  checkIfBlocksAreActive(dishesArray): boolean {
+  checkIfBlocksAreActive(dishesArray: Dish[]): boolean {
     let allActive; let notActive; 
     notActive = dishesArray.filter(dish => dish.active === false);
     if(notActive.length >= 1) {

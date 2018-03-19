@@ -31,6 +31,7 @@ export class DishesFormComponent {
           this.buildForm();
           this.dishes = data
         } else {
+          console.log("Error initializing dishes"); 
           this.error = this.errMessage;
         }
       })
@@ -68,7 +69,7 @@ export class DishesFormComponent {
           .then((data) => {
             this.highLighted = null;
             this.buildForm(); 
-            this.showAllDishes();
+            this.initializeDishesForm(); 
             
             const outcome = this.dishesProvider.checkIfBlocksAreActive(data);
             this.allActiveEvent.emit(outcome)
@@ -80,16 +81,5 @@ export class DishesFormComponent {
         console.log("JA DIT GAAT HELEMAAL FOUT"); 
       }
     }
-  }
-
-  showAllDishes() {
-    this.dishesProvider.getAllDishes()
-      .then(dishes => {
-        if(dishes === null) {
-          this.error = this.errMessage; 
-        } else {
-          this.dishes = dishes; 
-        }
-    }) 
   }
 }

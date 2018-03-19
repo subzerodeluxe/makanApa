@@ -13,7 +13,8 @@ import { DishesProvider } from '../../providers/dishes/dishes';
 })
 export class ActionPage {
 
-  showWheel: boolean = false; 
+  showWheel: boolean = false;
+  dishesPresent: boolean = false; 
   public initialDishList: Dish[] = [
     { name: "Sop", active: true }, 
     { name: "Stamppot Andijvie", active: true },
@@ -29,18 +30,38 @@ export class ActionPage {
   }
   
   ionViewWillLoad() {
+    this.checkForDishes();
+    // this.dishesProvider.getAllDishes()
+    //   .then(data => {
+    //     if(data === null) {
+    //       console.log("No dishes yet - actionPage ionViewWillLoad");
+    //       this.dishesProvider.initializeDishList(this.initialDishList)
+    //         .then(data => {
+    //           console.log("Succesfully placed data in local storage"); 
+    //         })
+    //     } else {
+    //       console.log("There are dishes! - actionPage ionViewWillLoad");
+    //     }
+    //   })
+  }
+
+  ionViewDidLoad() {
+    if(this.dishesPresent === false) {
+      this.dishesProvider.initializeDishList(this.initialDishList)
+        .then(() => console.log("Succesfully placed data in local storage")); 
+    }
+  }
+
+  checkForDishes() {
     this.dishesProvider.getAllDishes()
       .then(data => {
-        if(data != null) {
-          console.log("We have data!")
+        if(data === null) {
+          this.dishesPresent = false; 
         } else {
-          this.dishesProvider.initializeDishList(this.initialDishList)
-            .then(() => console.log("Placed data in local storage"))
+          this.dishesPresent = true; 
+          console.log("There are dishes present!"); 
         }
       })
-
-
-    // check if there are dishes --> so wheel can be shown || show the dishes-form 
   }
 
   checkBlocks($event) {
