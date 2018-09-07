@@ -1,53 +1,80 @@
 page-welcome-splash {
-    .splash-bg {
-        position: relative;
-        background-color: color($colors, primary);
-        background-size: cover;
-        height: 45%;
-        z-index: 1;
-        background-repeat: repeat-x;
+    ion-content {
+        .splash-bg {
+            position: relative;
+            background-color: color($colors, primary);
+            background-size: cover;
+            height: 55%;
+            z-index: 1;
+            background-repeat: repeat-x;
+        }
+
+        .main-logo-box {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .main-logo {
+            margin-left: 25px;
+            background: url('../assets/imgs/main-logo.png') repeat transparent;
+            background-size: 100%;
+            width: 200px;
+            height: 200px;
+        }
+
+        .splash-info {
+            position: relative;
+            z-index: 3;
+            margin-top: -100px;
+            text-align: center;
+        }
+
+        .handlebar-box {
+            position: relative;
+            z-index: 4;
+            margin-top: -100px;
+            margin-left: 150px;
+        }
+
+        .handlebar {
+            margin: auto;
+            background: url('../assets/imgs/handlebar.png') repeat transparent;
+            background-size: 100%;
+            width: 100px;
+            height: 100px;
+        }
+
+
+        .splash-logo {
+            margin: auto;
+            background: url('../assets/imgs/makanapa-wheel-edited-white.png') repeat transparent;
+            background-size: 100%;
+            width: 250px;
+            height: 250px;
+        -webkit-animation: spin 6s linear infinite;
+        -moz-animation: spin 6s linear infinite;
+        animation: spin 6s linear infinite;
+        }
+
+        @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+        @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+        @keyframes spin {
+            100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+        }
+
+        .splash-intro {
+            font-size: 18px;
+            color: #3b3f46;
+            font-weight: bold;
+            max-width: 80%;
+            margin: auto;
+        }       
     }
 
-    .splash-info {
-        position: relative;
-        z-index: 2;
-        margin-top: -100px;
-        text-align: center;
+    ion-footer {
+        ion-icon {
+            font-size: 22px;
+            color: color($colors, secondary);
+          } 
     }
-
-    .splash-logo {
-        margin: auto;
-        background: url('../assets/imgs/makanapa-wheel.png') repeat transparent;
-        background-size: 100%;
-        width: 250px;
-        height: 250px;
-        -webkit-animation: spin 4s linear infinite;
-        -moz-animation: spin 4s linear infinite;
-        animation: spin 4s linear infinite;
-    }
-
-    @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-    @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-    @keyframes spin {
-        100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
-    }
-
-    .splash-intro {
-        font-size: 18px;
-        font-weight: bold;
-        max-width: 80%;
-        margin: auto;
-    }
-    
-
-    // p, h2 {
-    //     color: #fff; 
-    // }
-
-    // img {
-    //     display: block;
-    //     margin-left: auto;
-    //     margin-right: auto;
-    //     margin-top: 20vh;
-    // }
 }

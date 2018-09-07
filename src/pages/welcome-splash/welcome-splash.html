@@ -2,13 +2,28 @@
   <img [@fadeOut] *ngIf="show" alt="logo" src="../assets/imgs/main-logo.png" style="width:75%">   
 </ion-content> -->
 <ion-content scrollbar-y-auto>
-  <div class="splash-bg"></div>
-  
+  <div class="splash-bg">
+      <div class="main-logo-box">
+          <div class="main-logo"></div>
+      </div>
+  </div>
+
+  <div class="handlebar-box">
+      <div class="handlebar"></div>
+  </div> 
+
   <div class="splash-info">
     <div class="splash-logo"></div>
     <div class="splash-intro">
       SOON ONLINE
     </div>
-
   </div>
 </ion-content>
+
+<ion-footer>
+    <ion-row>
+        <ion-col>
+            <p text-center>Made with <ion-icon name="heart"></ion-icon> by Maarten Waanders & Retnosasi </p> 
+        </ion-col>
+      </ion-row>
+</ion-footer>
