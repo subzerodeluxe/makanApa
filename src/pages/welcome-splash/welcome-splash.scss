@@ -1,18 +1,53 @@
-.ios, .md { 
-    page-welcome-splash {
-        ion-content {
-            background: color($colors, primary);
-        }
-
-        p, h2 {
-            color: #fff; 
-        }
-
-        img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 20vh;
-        }
+page-welcome-splash {
+    .splash-bg {
+        position: relative;
+        background-color: color($colors, primary);
+        background-size: cover;
+        height: 45%;
+        z-index: 1;
+        background-repeat: repeat-x;
     }
+
+    .splash-info {
+        position: relative;
+        z-index: 2;
+        margin-top: -100px;
+        text-align: center;
+    }
+
+    .splash-logo {
+        margin: auto;
+        background: url('../assets/imgs/makanapa-wheel.png') repeat transparent;
+        background-size: 100%;
+        width: 250px;
+        height: 250px;
+        -webkit-animation: spin 4s linear infinite;
+        -moz-animation: spin 4s linear infinite;
+        animation: spin 4s linear infinite;
+    }
+
+    @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+    @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+    @keyframes spin {
+        100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+    }
+
+    .splash-intro {
+        font-size: 18px;
+        font-weight: bold;
+        max-width: 80%;
+        margin: auto;
+    }
+    
+
+    // p, h2 {
+    //     color: #fff; 
+    // }
+
+    // img {
+    //     display: block;
+    //     margin-left: auto;
+    //     margin-right: auto;
+    //     margin-top: 20vh;
+    // }
 }

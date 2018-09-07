@@ -27,24 +27,24 @@ export class WelcomeSplashPage {
   
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
-  ionViewDidLoad() {
-    setTimeout(() => {
-      this.startAnimate();
-      //this.skipPage();
-    }, 3000); 
+  // ionViewDidLoad() {
+  //   setTimeout(() => {
+  //     this.startAnimate();
+  //     //this.skipPage();
+  //   }, 3000); 
 
-    console.log("Good. The new welcome-splash is working");
-  }
+  //   console.log("Good. The new welcome-splash is working");
+  // }
 
-  startAnimate() {
-    this.show = !this.show;
-    setTimeout(() => {
-      this.skipPage();
-    }, 650);
-  }
+  // startAnimate() {
+  //   this.show = !this.show;
+  //   setTimeout(() => {
+  //     // this.skipPage();
+  //   }, 650);
+  // }
 
-  skipPage() {
-    this.navCtrl.setRoot('home'); 
-  }
+  // skipPage() {
+  //   this.navCtrl.setRoot('home'); 
+  // }
 
 }
