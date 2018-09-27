@@ -1,23 +1,26 @@
-<ion-header>
-  <ion-navbar hideBackButton="false" color="primary">  <!-- hideBackButton="true"  --> 
+<!-- <ion-header>
+  <ion-navbar hideBackButton="false" color="primary"> 
     <img alt="logo" src="../assets/imgs/main-logo.png" style="width:50%"/>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content scroll="true">
+
+    <div class="splash-bg">
+        <div class="main-logo-box">
+            <div class="main-logo"></div>
+        </div>
+    </div>
 
 <dishes-form *ngIf="showWheel === false" (allActiveEvent)="checkBlocks($event)"></dishes-form>
 <wheel *ngIf="showWheel === true"></wheel>
 
 </ion-content>
 
-
-
-<!--
-PARENT: dishes-modal
-CHILDREN: wheel .. dishes-form 
-
-
-
-
--->
+<ion-footer>
+  <ion-row>
+      <ion-col>
+          <p text-center>Made with <ion-icon name="heart"></ion-icon> by Maarten Waanders & Retnosasi </p> 
+      </ion-col>
+    </ion-row>
+</ion-footer>

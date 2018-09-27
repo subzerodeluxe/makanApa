@@ -1,5 +1,38 @@
 .ios, .md {
     page-action {
+
+        ion-content {
+            .splash-bg {
+                position: relative;
+                background-color: color($colors, primary);
+                background-size: cover;
+                height: 25%;
+                z-index: 1;
+                background-repeat: repeat-x;
+            }
+    
+            .main-logo-box {
+              margin: 0 auto;
+              padding-top: 60px;
+              position: relative;
+              z-index: 2;
+              width: 250px;
+              height: 200px;
+            }
+            
+            .main-logo {
+                // margin-left: 25px;
+                // background: url('../assets/imgs/main-logo.png') repeat transparent;
+                // margin: 0 auto;
+                background: url('../assets/imgs/makanapa-plain-logo.png') no-repeat transparent;
+                background-size: 100%;
+                width: 250px;
+                height: 75px;
+                // width: 200px;
+                // height: 200px;
+            }
+    
+        }
            
           img {
               display: block;
@@ -63,6 +96,13 @@
         .text-input::-webkit-input-placeholder {
             text-indent: 0;
             color: #d1c55d;
+        }
+
+        ion-footer {
+            ion-icon {
+                font-size: 22px;
+                color: color($colors, secondary);
+              } 
         }
 
       }

@@ -47,4 +47,8 @@ export class WelcomeSplashPage {
   //   this.navCtrl.setRoot('home'); 
   // }
 
+  loadWheel() {
+    this.navCtrl.setRoot('home');
+  }
+
 }

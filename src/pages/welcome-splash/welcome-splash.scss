@@ -10,16 +10,24 @@ page-welcome-splash {
         }
 
         .main-logo-box {
-            position: relative;
-            z-index: 2;
+          margin: 0 auto;
+          padding-top: 60px;
+          position: relative;
+          z-index: 2;
+          width: 250px;
+          height: 200px;
         }
         
         .main-logo {
-            margin-left: 25px;
-            background: url('../assets/imgs/main-logo.png') repeat transparent;
+            // margin-left: 25px;
+            // background: url('../assets/imgs/main-logo.png') repeat transparent;
+            // margin: 0 auto;
+            background: url('../assets/imgs/makanapa-plain-logo.png') no-repeat transparent;
             background-size: 100%;
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 75px;
+            // width: 200px;
+            // height: 200px;
         }
 
         .splash-info {
@@ -47,13 +55,13 @@ page-welcome-splash {
 
         .splash-logo {
             margin: auto;
-            background: url('../assets/imgs/makanapa-wheel-edited-white.png') repeat transparent;
+            background: url('../assets/imgs/makanapa-wheel-spinning.png') repeat transparent;
             background-size: 100%;
             width: 250px;
             height: 250px;
-        -webkit-animation: spin 6s linear infinite;
-        -moz-animation: spin 6s linear infinite;
-        animation: spin 6s linear infinite;
+            -webkit-animation: spin 6s linear infinite;
+            -moz-animation: spin 6s linear infinite;
+            animation: spin 6s linear infinite;
         }
 
         @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
@@ -63,11 +71,11 @@ page-welcome-splash {
         }
 
         .splash-intro {
-            font-size: 18px;
-            color: #3b3f46;
-            font-weight: bold;
-            max-width: 80%;
-            margin: auto;
+            margin: 0 auto;
+            background: url('../assets/imgs/swipe-button.png') no-repeat transparent;
+            background-size: 100%;
+            width: 125px;
+            height: 75px;
         }       
     }
 

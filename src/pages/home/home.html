@@ -1,4 +1,4 @@
-<ion-slides pager="true">
+<ion-slides pager="false">
     <ion-slide>
       <img style="width:75%" src="../assets/imgs/makanapa-wheel.png" />
       <ion-row>
@@ -8,29 +8,10 @@
           </ion-col>
         </ion-row>
     </ion-slide>
-   
-    <ion-slide>
-      <img style="width:50%" src="../assets/imgs/main-logo.png" />
-      <ion-row>
-          <ion-col>
-            <p>It is super easy!</p> 
-          </ion-col>
-        </ion-row>
-    </ion-slide>
-   
-    <ion-slide>
-      <img style="width:50%" src="../assets/imgs/main-logo.png" />
-      <ion-row>
-          <ion-col>
-            <p>Just click the yellow button to start!</p> 
-          </ion-col>
-        </ion-row>
-    </ion-slide>
-  </ion-slides>
+</ion-slides>
 
 <ion-fab [@shake]="state" (@shake.done)="onEnd($event)" padding right bottom>
   <button color="secondary" (click)="openActionPage()" ion-fab>
     <ion-icon name="add"></ion-icon>
   </button>
 </ion-fab>
-
